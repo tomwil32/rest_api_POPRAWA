@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\PeopleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'wilczynski/50064', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
+    Route::apiResource('people', PeopleController::class);
+});
+
+Route::get('people/{id}', [PeopleController::class, 'show']);
+Route::get('people/{id}/edit', [PeopleController::class, 'edit']);
+Route::put('people/{id}/edit', [PeopleController::class, 'update']);
+Route::delete('people/{id}/delete', [PeopleController::class, 'destroy']);
